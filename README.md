@@ -1,4 +1,4 @@
-# SharpPyxis.Packags
+# SharpPyxis.Packages
 
 A collection of small, focused .NET primitives with zero external dependencies.
 
