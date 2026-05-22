@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SharpPyxis.Results/SharpPyxis.Results.csproj" />
+    <Project Path="src/SharpPyxis.Guards/SharpPyxis.Guards.csproj" />
+  </Folder>
+</Solution>

@@ -10,8 +10,8 @@
     <Description>Lightweight Result&lt;T&gt; and Error primitives for .NET. Zero dependencies.</Description>
     <PackageTags>result;error;either;functional;primitives</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/frederic-ringeard/SharpPyxis</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/frederic-ringeard/SharpPyxis</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/SharpPyxis/SharpPyxis.Packages</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SharpPyxis/SharpPyxis.Packages</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>

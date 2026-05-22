@@ -1,4 +1,4 @@
-# SharpPyxis
+# SharpPyxis.Packags
 
 A collection of small, focused .NET primitives with zero external dependencies.
 
@@ -6,8 +6,8 @@ Each package is independent — take only what you need.
 
 | Package | Description | NuGet |
 |---|---|---|
-| `SharpPyxis.Results` | `Result<T>` and `Error` primitives for explicit error handling | *(coming soon)* |
-| `SharpPyxis.Guards` | Argument validation guards and `UserFacingException` | *(coming soon)* |
+| `SharpPyxis.Results` | `Result<T>` and `Error` primitives for explicit error handling | [SharpPyxis.Results](https://www.nuget.org/packages/SharpPyxis.Results/) |
+| `SharpPyxis.Guards` | Argument validation guards and `UserFacingException` | [SharpPyxis.Guards](https://www.nuget.org/packages/SharpPyxis.Guards/) |
 
 **Target frameworks:** `net8.0`, `net10.0`
 

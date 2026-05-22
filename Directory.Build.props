@@ -15,8 +15,8 @@
     <Company>SharpPyxis</Company>
     <Product>SharpPyxis</Product>
     <Copyright>Copyright © SharpPyxis 2026</Copyright>
-    <PackageProjectUrl>https://github.com/SharpPyxis</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/SharpPyxis/SharpPyxis</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/SharpPyxis/SharpPyxis.Packages</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SharpPyxis/SharpPyxis.Packages</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

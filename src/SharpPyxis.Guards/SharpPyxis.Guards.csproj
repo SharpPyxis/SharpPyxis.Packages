@@ -10,8 +10,8 @@
     <Description>Guard helpers and UserFacingException for argument validation and safe error surfacing. Zero dependencies.</Description>
     <PackageTags>guard;validation;argument;exception;primitives</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/frederic-ringeard/SharpPyxis</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/frederic-ringeard/SharpPyxis</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/SharpPyxis/SharpPyxis.Packages</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SharpPyxis/SharpPyxis.Packages</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
