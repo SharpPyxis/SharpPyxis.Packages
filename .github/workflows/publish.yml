@@ -1,0 +1,37 @@
+name: Publish to NuGet
+
+# Publishing is driven by a semver tag. Bump the <Version> in the package .csproj,
+# commit, then push a matching tag (e.g. v1.0.0) to trigger this workflow.
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      # Quality gate: the whole solution must build and its tests pass before anything is pushed.
+      - name: Test
+        run: dotnet test SharpPyxis.Packages.slnx -c Release
+
+      - name: Pack
+        run: dotnet pack SharpPyxis.Packages.slnx -c Release
+
+      # Pushes every produced package. Already-published versions are skipped, so unchanged
+      # packages are ignored and only the newly versioned one is published.
+      - name: Push to NuGet
+        run: >
+          dotnet nuget push "artifacts/packages/*.nupkg"
+          --api-key "${{ secrets.NUGET_API_KEY }}"
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate

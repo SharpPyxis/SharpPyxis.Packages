@@ -1,7 +1,19 @@
+# Build outputs and IDE noise
 bin/
 obj/
 artifacts/
 *.user
 .vs/
+
+# Local-only workspace docs (never published)
 _local/
-.github/
+
+# .github stays unversioned: it holds a local copilot-instructions.md we must not publish.
+# Allow-list logic (opt-in, so we never leak a new file by forgetting to deny it): ignore the whole
+# folder's contents, then re-include ONLY the publish workflow. Note: ignoring the directory itself
+# (".github/") would make any negation below ineffective — git can't re-include a file whose parent
+# directory is excluded. So we ignore contents with a glob and re-include in cascade.
+.github/*
+!.github/workflows/
+.github/workflows/*
+!.github/workflows/publish.yml
