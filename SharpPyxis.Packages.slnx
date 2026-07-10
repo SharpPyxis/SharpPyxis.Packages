@@ -2,5 +2,9 @@
   <Folder Name="/src/">
     <Project Path="src/SharpPyxis.Results/SharpPyxis.Results.csproj" />
     <Project Path="src/SharpPyxis.Guards/SharpPyxis.Guards.csproj" />
+    <Project Path="src/SharpPyxis.UnitOfWork/SharpPyxis.UnitOfWork.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SharpPyxis.UnitOfWork.Tests/SharpPyxis.UnitOfWork.Tests.csproj" />
   </Folder>
 </Solution>
