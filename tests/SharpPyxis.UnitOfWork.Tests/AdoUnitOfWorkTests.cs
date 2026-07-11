@@ -179,7 +179,7 @@ public sealed class AdoUnitOfWorkTests
         await using var db = await SqliteTestDatabase.CreateAsync();
         var factory = new AdoUnitOfWorkFactory(db.ProvideConnectionAsync, BuildRegistry());
 
-        await using var uow = await factory.CreateAndBeginAsync();
+        await using var uow = await factory.OpenAndBeginAsync();
 
         Assert.True(uow.HasActiveTransaction);
         await uow.Repo<IWidgetRepository>().InsertAsync("alpha");
@@ -194,7 +194,7 @@ public sealed class AdoUnitOfWorkTests
         await using var db = await SqliteTestDatabase.CreateAsync();
         var factory = new AdoUnitOfWorkFactory(db.ProvideConnectionAsync, BuildRegistry());
 
-        await using var uow = await factory.CreateAsync();
+        await using var uow = await factory.OpenAsync();
 
         Assert.False(uow.HasActiveTransaction);
     }

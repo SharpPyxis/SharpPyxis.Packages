@@ -4,11 +4,11 @@
     <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
     <RootNamespace>SharpPyxis.UnitOfWork</RootNamespace>
     <PackageId>SharpPyxis.UnitOfWork</PackageId>
-    <Version>1.0.0</Version>
+    <Version>2.0.0</Version>
     <Authors>Frédéric Ringeard</Authors>
     <Copyright>Copyright © 2026 Frédéric Ringeard</Copyright>
-    <Description>À-la-carte Unit of Work over ADO.NET: owns the connection and transaction and resolves repositories on demand through a typed factory registry — no reflection, no fixed repository list. Zero dependencies.</Description>
-    <PackageTags>unit-of-work;repository;ado.net;transaction;dbconnection;primitives</PackageTags>
+    <Description>À-la-carte Unit of Work: owns the connection and transaction and resolves repositories on demand through a typed factory registry — no reflection, no fixed repository list. Ships a relational (ADO.NET) and an in-memory implementation behind one IUnitOfWorkFactory, so switching backing store is a composition-root decision. Zero dependencies.</Description>
+    <PackageTags>unit-of-work;repository;ado.net;in-memory;transaction;dbconnection;primitives</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/SharpPyxis/SharpPyxis.Packages</PackageProjectUrl>
     <RepositoryUrl>https://github.com/SharpPyxis/SharpPyxis.Packages</RepositoryUrl>

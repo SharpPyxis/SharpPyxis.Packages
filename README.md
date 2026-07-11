@@ -8,7 +8,7 @@ Each package is independent — take only what you need.
 |---|---|---|
 | `SharpPyxis.Results` | `Result<T>` and `Error` primitives for explicit error handling | [SharpPyxis.Results](https://www.nuget.org/packages/SharpPyxis.Results/) |
 | `SharpPyxis.Guards` | Argument validation guards and `UserFacingException` | [SharpPyxis.Guards](https://www.nuget.org/packages/SharpPyxis.Guards/) |
-| `SharpPyxis.UnitOfWork` | À-la-carte Unit of Work over ADO.NET — repositories resolved on demand | [SharpPyxis.UnitOfWork](https://www.nuget.org/packages/SharpPyxis.UnitOfWork/) |
+| `SharpPyxis.UnitOfWork` | À-la-carte Unit of Work (ADO.NET or in-memory) — repositories resolved on demand | [SharpPyxis.UnitOfWork](https://www.nuget.org/packages/SharpPyxis.UnitOfWork/) |
 
 **Target frameworks:** `net8.0`, `net10.0`
 
@@ -107,14 +107,17 @@ throw new UserFacingException("Resource has been locked.", statusCode: 423);
 
 ## SharpPyxis.UnitOfWork
 
-An à-la-carte Unit of Work over ADO.NET. The unit of work owns the connection and transaction and
-hands out repositories **on demand** through a typed factory registry — instead of bundling a fixed
-set of repository properties that every operation drags along. No reflection: repositories are built
-from explicit factories, and `Repo<T>()` is a generic method, so callers keep full IntelliSense and
-never cast.
+An à-la-carte Unit of Work. The unit of work owns the connection and transaction and hands out
+repositories **on demand** through a typed factory registry — instead of bundling a fixed set of
+repository properties that every operation drags along. No reflection: repositories are built from
+explicit factories, and `Repo<T>()` is a generic method, so callers keep full IntelliSense and never
+cast.
 
-Works with any ADO.NET provider (Npgsql, SqlClient, SQLite, …) because it only ever touches
-`System.Data.Common`.
+It ships two implementations behind one `IUnitOfWorkFactory`: a **relational** one over ADO.NET
+(works with any provider — Npgsql, SqlClient, SQLite, … — because it only ever touches
+`System.Data.Common`), and an **in-memory** one for demos, prototyping, and tests. A service that
+depends on `IUnitOfWorkFactory` switches between them at the composition root, with no change to its
+own code.
 
 ### Installation
 
@@ -201,8 +204,49 @@ await uow.Repo<IPartiesRepository>().CreateAsync(party, ct);
 await uow.CommitAsync(ct);
 ```
 
-For a fixed connection source, register `AdoUnitOfWorkFactory` (e.g. as a singleton) and create a
-unit of work per operation with `CreateAsync(ct)` or `CreateAndBeginAsync(ct)`.
+For a fixed connection source, register `AdoUnitOfWorkFactory` (e.g. as a singleton) and open a unit
+of work per operation with `OpenAsync(ct)` or `OpenAndBeginAsync(ct)` — the two methods of
+`IUnitOfWorkFactory`.
+
+### Switching backing store — the generic factory
+
+Depend on `IUnitOfWorkFactory`, not on a per-domain factory. The seam is generic: swap the relational
+factory for the in-memory one at the composition root and your service code is untouched.
+
+```csharp
+using SharpPyxis.UnitOfWork;
+
+// A service depends only on the generic factory:
+public sealed class OrderService(IUnitOfWorkFactory unitOfWork)
+{
+    public async Task PlaceAsync(Order order, CancellationToken ct)
+    {
+        await using var uow = await unitOfWork.OpenAndBeginAsync(ct);
+        await uow.Repo<IOrdersRepository>().CreateAsync(order, ct);
+        await uow.CommitAsync(ct);
+    }
+}
+```
+
+The in-memory implementation keeps its own registry, `T → () => repo` — an in-memory repository has no
+connection to bind, so its factory is parameterless. Register a **singleton** to persist state across
+units of work (a realistic database stand-in), or a fresh instance per call for throwaway state:
+
+```csharp
+using SharpPyxis.UnitOfWork.InMemory;
+
+var parts = new InMemoryPartsRepository();               // shared backing store
+var registry = new InMemoryRepositoryRegistry()
+    .Add<IPartsRepository>(() => parts)                  // singleton → data survives across units of work
+    .Add<IOrdersRepository>(() => new InMemoryOrdersRepository());
+
+IUnitOfWorkFactory unitOfWork = new InMemoryUnitOfWorkFactory(registry);
+```
+
+**The in-memory transaction is not real.** `Begin`/`Commit`/`Rollback` follow the same lifecycle rules
+as the relational unit of work (so the two are substitutable), but `Commit` has no effect and — by
+design — **`Rollback` does not undo mutations** (no snapshot is taken). It gives you the same call
+shape, not isolation or atomicity; don't rely on it where rollback semantics matter.
 
 ### Startup health check
 
