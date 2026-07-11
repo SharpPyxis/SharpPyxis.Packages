@@ -27,6 +27,9 @@ public sealed class Error(string code, string message, ErrorType type = ErrorTyp
     /// <summary>Creates a conflict error.</summary>
     public static Error Conflict(string code, string message) => new(code, message, ErrorType.Conflict);
 
+    /// <summary>Creates a precondition failed error.</summary>
+    public static Error PreconditionFailed(string code, string message) => new(code, message, ErrorType.PreconditionFailed);
+    
     /// <summary>Creates an unauthorized error.</summary>
     public static Error Unauthorized(string code, string message) => new(code, message, ErrorType.Unauthorized);
 

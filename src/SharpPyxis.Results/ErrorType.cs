@@ -16,5 +16,7 @@ public enum ErrorType
     /// <summary>Unauthorized (HTTP 401).</summary>
     Unauthorized = 5,
     /// <summary>Forbidden (HTTP 403).</summary>
-    Forbidden = 6
+    Forbidden = 6,
+    /// <summary>Precondition failed (HTTP 412) — ex. échec d'un contrôle de concurrence ETag / If-Match.</summary>
+    PreconditionFailed = 7
 }
