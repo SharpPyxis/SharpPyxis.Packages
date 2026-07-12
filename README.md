@@ -56,6 +56,7 @@ Error.Validation("Name.Required", "Name is required.")
 Error.Unauthorized("Auth.Expired", "Token has expired.")
 Error.Forbidden("Role.Missing", "Insufficient permissions.")
 Error.Unexpected("Order.Failed", "An unexpected error occurred.")
+Error.PreconditionFailed("Party.VersionConflict", "The party was modified by someone else since you loaded it. Reload and retry.")
 ```
 
 ---
