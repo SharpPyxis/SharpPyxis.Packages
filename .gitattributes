@@ -1,0 +1,8 @@
+# Line endings: LF everywhere (workstation policy + published repositories).
+# The repository stores LF; checkout writes LF regardless of the cloner's
+# core.autocrlf setting. Binary files are auto-detected and left untouched.
+* text=auto eol=lf
+
+# Legacy Windows scripts require CRLF (batch label parsing).
+*.bat text eol=crlf
+*.cmd text eol=crlf
