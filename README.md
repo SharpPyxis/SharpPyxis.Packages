@@ -1,5 +1,17 @@
 # SharpPyxis.Packages
 
+**This repository is no longer maintained.** No new version of these packages will be released.
+
+The versions already published on NuGet stay available, so projects that reference them keep
+restoring and building as before. NuGet lists the three packages as deprecated, with no replacement
+package. The repository is archived on GitHub: it is read-only and no longer accepts issues or pull
+requests.
+
+The code is under the MIT license. If you depend on one of these packages and need changes, you can
+fork the repository and publish your own version.
+
+---
+
 A collection of small, focused .NET primitives with zero external dependencies.
 
 Each package is independent — take only what you need.
